@@ -1,12 +1,9 @@
-#Version 1.0
-#Basic mode - enter 2 number per prompt
-#Need to:
-#Accept more input values
+#Version 2.0
 #Option to enter product and return fangs
-#Accept all input on one line
+#error checking
 
 def vampire fangs, product
-  fangsort = fangs.to_s.split(//).sort
+  fangsort = fangs.join.to_s.split(//).sort
   productsort = product.to_s.split(//).sort
 
   if fangsort == productsort
@@ -16,19 +13,22 @@ def vampire fangs, product
   end
 end
 
-puts("Vampires?")
-puts("Enter your first number:")
-fangone = gets.chomp
-puts("Enter your second number:")
-fangtwo = gets.chomp
+#Start / Input
+puts("Vampires? Here maybe?")
+puts("Enter your fangs seperated by spaces:")
 
-fangs = fangone + fangtwo
-product = fangone.to_i * fangtwo.to_i
+fangs = gets.chomp.split(" ").map{ |x| x.to_i}
+product = fangs.inject{ |result, element| result * element }
 
+#Result
+if fangs[2] != nil
+  puts("#{fangs[0]} * #{fangs[1]} * #{fangs[2]} = #{product}")
+else
+  puts("#{fangs[0]} * #{fangs[1]} = #{product}")
+end
 
-puts("#{fangone} * #{fangtwo} = #{product}")
 if vampire(fangs, product) == true
   puts("This is a clear Vampire!!")
-elsif
+else
   puts("No Vampire here!!")
 end
